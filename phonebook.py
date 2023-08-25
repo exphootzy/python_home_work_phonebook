@@ -14,5 +14,18 @@ def print_book(book: list):
         cont = f'{contact["name"]} {contact["phone"]} {contact["comment"]}'
         print(cont)
 
+def find_contact(word: str):
+    global phonebook
+    result = []
+    for contact in phonebook:
+        for field in contact.values():
+            if word in field:
+                result.append(contact)
+                break
+    return result
 open_file('phone_book\phonebook.txt')
 print_book(phonebook)
+
+search = input('Введите ключевое слово для поиска: ')
+result = find_contact(search)
+print_book(result)
