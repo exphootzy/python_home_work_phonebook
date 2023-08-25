@@ -1,6 +1,29 @@
 
 phonebook = []
 
+def menu():
+    while True:
+        print('СПРАВОЧНИК ГЛАВНОЕ МЕНЮ:'
+              '1. Открыть файл'
+              '2. Посмотреть все контакты справочника'
+              '3. Найти контакт'
+              '4. Добавить контакт'
+              '5. Выход')
+        choice = int(input('Выберите номер пункта меню: '))
+        match choice:
+            case 1:
+                open_file('phone_book\phonebook.txt')
+            case 2:
+                print_book(phonebook)
+            case 3:
+                search = input('Введите ключевое слово для поиска: ')
+                result = find_contact(search)
+                print_book(result)
+            case 4:
+                pass
+            case 5:
+                break
+
 def open_file(path):
     global phonebook
     with open(path, 'r', encoding='UTF-8') as file:
@@ -23,9 +46,6 @@ def find_contact(word: str):
                 result.append(contact)
                 break
     return result
-open_file('phone_book\phonebook.txt')
-print_book(phonebook)
 
-search = input('Введите ключевое слово для поиска: ')
-result = find_contact(search)
-print_book(result)
+
+
