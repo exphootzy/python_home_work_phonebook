@@ -8,7 +8,7 @@ def open_file(path):
         data = file.readlines()
     for contact in data:
         contact = contact.strip().split(';')
-        phonebook.append({'name': contact[0], 'phone': contact[1], 'comment': contact[2]})
+        phonebook.append({'id': contact[0], 'name': contact[1], 'phone': contact[2], 'comment': contact[3]})
 
 def save_file(path):
     global phonebook
@@ -22,7 +22,7 @@ def save_file(path):
 
 def print_book(book: list):
     for contact in book:
-        cont = f'{contact["name"]} {contact["phone"]} {contact["comment"]}'
+        cont = f'{contact["id"]} {contact["name"]} {contact["phone"]} {contact["comment"]}'
         print(cont)
 
 def find_contact(word: str):
@@ -37,17 +37,25 @@ def find_contact(word: str):
 
 def add_contact(new):
     global phonebook
-    phonebook.append({'name': new[0], 'phone': new[1], 'comment': new[2]})
+    phonebook.append({'id': new[0],'name': new[1], 'phone': new[2], 'comment': new[3]})
 
-def delet_contact(word: str):
+def delet_contact(id):
     global phonebook
-    result = []
     for contact in phonebook:
         for field in contact.values():
-            if word in field:
-                result.append(contact)
+            if (id == field):
+                phonebook.remove(contact)
                 break
-    return result
+    return phonebook
+
+# def delet_contact(id):
+#     global phonebook
+#     result = []
+#     for row in phonebook:
+#         if (row[0] == id):
+#             result.remove(row)
+#             break
+#     return result
 
 
 def menu():
@@ -74,12 +82,15 @@ def menu():
                 result = find_contact(search)
                 print_book(result)
             case 5:
+                id = input('Введите уникальный ID для нового контакта: ')
                 name = input('Введите имя для нового контакта: ')
                 phone = input('Введите номер телефона для нового контакта: ')
                 comment = input('Введите комментарий для нового контакта: ')
-                add_contact([name, phone, comment])
+                add_contact([id, name, phone, comment])
             case 6:
-                pass
+                id = input('Введите уникальный ID для удаления контакта: ')
+                result = delet_contact(id)
+                print_book(result)
             case 7:
                 pass
             case 8:
