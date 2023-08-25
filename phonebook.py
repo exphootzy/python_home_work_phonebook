@@ -1,28 +1,6 @@
 
 phonebook = []
 
-def menu():
-    while True:
-        print('СПРАВОЧНИК ГЛАВНОЕ МЕНЮ:'
-              '1. Открыть файл'
-              '2. Посмотреть все контакты справочника'
-              '3. Найти контакт'
-              '4. Добавить контакт'
-              '5. Выход')
-        choice = int(input('Выберите номер пункта меню: '))
-        match choice:
-            case 1:
-                open_file('phone_book\phonebook.txt')
-            case 2:
-                print_book(phonebook)
-            case 3:
-                search = input('Введите ключевое слово для поиска: ')
-                result = find_contact(search)
-                print_book(result)
-            case 4:
-                pass
-            case 5:
-                break
 
 def open_file(path):
     global phonebook
@@ -47,5 +25,35 @@ def find_contact(word: str):
                 break
     return result
 
+def add_contact(new):
+    global phonebook
+    phonebook.append({'name': new[0], 'phone': new[1], 'comment': new[2]})
 
 
+def menu():
+    while True:
+        print('СПРАВОЧНИК ГЛАВНОЕ МЕНЮ:\n'
+              '\t1. Открыть файл\n'
+              '\t2. Посмотреть все контакты справочника\n'
+              '\t3. Найти контакт\n'
+              '\t4. Добавить контакт\n'
+              '\t25. Выход\n')
+        choice = int(input('Выберите номер пункта меню: '))
+        match choice:
+            case 1:
+                open_file('phone_book\phonebook.txt')
+            case 2:
+                print_book(phonebook)
+            case 3:
+                search = input('Введите ключевое слово для поиска: ')
+                result = find_contact(search)
+                print_book(result)
+            case 4:
+                name = input('Введите имя для нового контакта: ')
+                phone = input('Введите номер телефона для нового контакта: ')
+                comment = input('Введите комментарий для нового контакта: ')
+                add_contact([name, phone, comment])
+            case 5:
+                break
+if __name__ == '__main__':
+    menu()
