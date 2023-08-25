@@ -10,6 +10,16 @@ def open_file(path):
         contact = contact.strip().split(';')
         phonebook.append({'name': contact[0], 'phone': contact[1], 'comment': contact[2]})
 
+def save_file(path):
+    global phonebook
+    result = []
+    for contact in phonebook:
+        cont = ';'.join(contact.values())
+        result.append(cont)
+    result = '\n'.join(result)
+    with open(path, 'w', encoding='UTF-8') as file:
+        file.write(result)
+
 def print_book(book: list):
     for contact in book:
         cont = f'{contact["name"]} {contact["phone"]} {contact["comment"]}'
@@ -29,31 +39,50 @@ def add_contact(new):
     global phonebook
     phonebook.append({'name': new[0], 'phone': new[1], 'comment': new[2]})
 
+def delet_contact(word: str):
+    global phonebook
+    result = []
+    for contact in phonebook:
+        for field in contact.values():
+            if word in field:
+                result.append(contact)
+                break
+    return result
+
 
 def menu():
     while True:
         print('СПРАВОЧНИК ГЛАВНОЕ МЕНЮ:\n'
               '\t1. Открыть файл\n'
-              '\t2. Посмотреть все контакты справочника\n'
-              '\t3. Найти контакт\n'
-              '\t4. Добавить контакт\n'
-              '\t25. Выход\n')
+              '\t2. Сохранить файл\n'
+              '\t3. Посмотреть все контакты справочника\n'
+              '\t4. Найти контакт\n'
+              '\t5. Добавить контакт\n'
+              '\t6. Удалить контакт\n'
+              '\t7. Изменить существующий контакт\n'
+              '\t8. Выход\n')
         choice = int(input('Выберите номер пункта меню: '))
         match choice:
             case 1:
                 open_file('phone_book\phonebook.txt')
             case 2:
-                print_book(phonebook)
+                save_file('phone_book\phonebook.txt')
             case 3:
+                print_book(phonebook)
+            case 4:
                 search = input('Введите ключевое слово для поиска: ')
                 result = find_contact(search)
                 print_book(result)
-            case 4:
+            case 5:
                 name = input('Введите имя для нового контакта: ')
                 phone = input('Введите номер телефона для нового контакта: ')
                 comment = input('Введите комментарий для нового контакта: ')
                 add_contact([name, phone, comment])
-            case 5:
+            case 6:
+                pass
+            case 7:
+                pass
+            case 8:
                 break
 if __name__ == '__main__':
     menu()
