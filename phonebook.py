@@ -48,16 +48,6 @@ def delet_contact(id):
                 break
     return phonebook
 
-# def delet_contact(id):
-#     global phonebook
-#     result = []
-#     for row in phonebook:
-#         if (row[0] == id):
-#             result.remove(row)
-#             break
-#     return result
-
-
 def menu():
     while True:
         print('СПРАВОЧНИК ГЛАВНОЕ МЕНЮ:\n'
@@ -67,8 +57,7 @@ def menu():
               '\t4. Найти контакт\n'
               '\t5. Добавить контакт\n'
               '\t6. Удалить контакт\n'
-              '\t7. Изменить существующий контакт\n'
-              '\t8. Выход\n')
+              '\t7. Выход\n')
         choice = int(input('Выберите номер пункта меню: '))
         match choice:
             case 1:
@@ -92,8 +81,6 @@ def menu():
                 result = delet_contact(id)
                 print_book(result)
             case 7:
-                pass
-            case 8:
                 break
 if __name__ == '__main__':
     menu()
