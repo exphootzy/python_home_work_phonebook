@@ -48,6 +48,12 @@ def delet_contact(id):
                 break
     return phonebook
 
+def edit(c_id: int, contact: list[str]):
+    global phonebook
+    current_contact = phonebook.get(c_id)
+    new_contact = [contact[i] if contact[i] else current_contact[i] for i in range(4)]
+    phonebook[c_id] = new_contact 
+
 def menu():
     while True:
         print('СПРАВОЧНИК ГЛАВНОЕ МЕНЮ:\n'
@@ -57,7 +63,8 @@ def menu():
               '\t4. Найти контакт\n'
               '\t5. Добавить контакт\n'
               '\t6. Удалить контакт\n'
-              '\t7. Выход\n')
+              '\t7. Изменить контакт\n'
+              '\t8. Выход\n')
         choice = int(input('Выберите номер пункта меню: '))
         match choice:
             case 1:
@@ -81,6 +88,15 @@ def menu():
                 result = delet_contact(id)
                 print_book(result)
             case 7:
+                search = input('Введите ключевое слово для поиска контакта который хотите изменить: ')
+                edit_id = input('Введите ID контакта который хотите изменить')
+                id = edit_id
+                name = input('Введите имя для нового контакта: ')
+                phone = input('Введите номер телефона для нового контакта: ')
+                comment = input('Введите комментарий для нового контакта: ')
+                new_contact = add_contact([id, name, phone, comment])
+                edit(edit_id, new_contact)
+            case 8:
                 break
 if __name__ == '__main__':
     menu()
